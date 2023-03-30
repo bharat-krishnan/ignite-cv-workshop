@@ -158,17 +158,26 @@ def playGameWDistance():
             
             coord1 = [lmList[4][0], lmList[4][1]]
             coord2 = [lmList[8][0], lmList[8][1]] 
+            coord3 = [lmList[12][0], lmList[12][1]] 
 
-            length, info, image  = detector.findDistance( coord1, coord2, image)
-            print(length)
+            length1, info, image  = detector.findDistance( coord1, coord2, image)
+            length2, info, image  = detector.findDistance( coord1, coord3, image)
+            print(length1)
             
 
-            if length <= 18:
+            if length1 <= 18:
                 cv2.putText(frame, 'Jump', (20,20), cv2.FONT_HERSHEY_COMPLEX, 1, (255,255,255), 1, cv2.LINE_AA)
                 keyboard.press(Key.space)
+            # else:
+            #     cv2.putText(frame, 'Neutral', (20,20), cv2.FONT_HERSHEY_COMPLEX, 1, (255,255,255), 1, cv2.LINE_AA)
+            #     keyboard.release(Key.space)
+            elif length2 <= 25:
+                cv2.putText(frame, 'Duck', (40,20), cv2.FONT_HERSHEY_COMPLEX, 1, (255,255,255), 1, cv2.LINE_AA)
+                keyboard.press(Key.down)
             else:
-                cv2.putText(frame, 'Neutral', (20,20), cv2.FONT_HERSHEY_COMPLEX, 1, (255,255,255), 1, cv2.LINE_AA)
+                cv2.putText(frame, 'Neutral', (40,20), cv2.FONT_HERSHEY_COMPLEX, 1, (255,255,255), 1, cv2.LINE_AA)
                 keyboard.release(Key.space)
+                keyboard.release(Key.down)
 
 
         cv2.imshow('Frame', image)
